@@ -1,0 +1,81 @@
+==============================================================
+PHASE 3 PROFILE SERVICE FIX REPORT
+==============================================================
+
+Date       : Sun Aug  9 09:00:54 UTC 2026
+AWS Account: 874551618373
+Region     : us-east-1
+Cluster    : mern-eks
+Namespace  : mern
+
+Frontend Image:
+874551618373.dkr.ecr.us-east-1.amazonaws.com/mern-frontend:v3
+
+LoadBalancer:
+ab35133b4192a4217a9e59c7e5ac418a-1604142932.us-east-1.elb.amazonaws.com
+
+==============================================================
+NODES
+==============================================================
+NAME                             STATUS   ROLES    AGE   VERSION               INTERNAL-IP      EXTERNAL-IP     OS-IMAGE                        KERNEL-VERSION                    CONTAINER-RUNTIME
+ip-192-168-32-152.ec2.internal   Ready    <none>   90m   v1.34.9-eks-254016e   192.168.32.152   54.197.18.124   Amazon Linux 2023.12.20260727   6.12.94-123.192.amzn2023.x86_64   containerd://2.2.5+unknown
+
+==============================================================
+DEPLOYMENTS
+==============================================================
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+frontend          1/1     1            1           14m
+hello-service     1/1     1            1           14m
+mongodb           1/1     1            1           14m
+profile-service   1/1     1            1           14m
+
+==============================================================
+PODS
+==============================================================
+NAME                               READY   STATUS    RESTARTS   AGE   IP               NODE                             NOMINATED NODE   READINESS GATES
+frontend-66f5c9668f-qkzdx          1/1     Running   0          77s   192.168.43.87    ip-192-168-32-152.ec2.internal   <none>           <none>
+hello-service-545bbc6ddc-dvhcz     1/1     Running   0          14m   192.168.39.22    ip-192-168-32-152.ec2.internal   <none>           <none>
+mongodb-7c6554d49b-ssmtt           1/1     Running   0          14m   192.168.56.116   ip-192-168-32-152.ec2.internal   <none>           <none>
+profile-service-779757449c-5xsvh   1/1     Running   0          14m   192.168.38.198   ip-192-168-32-152.ec2.internal   <none>           <none>
+
+==============================================================
+SERVICES
+==============================================================
+NAME              TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)        AGE
+frontend          LoadBalancer   10.100.120.216   ab35133b4192a4217a9e59c7e5ac418a-1604142932.us-east-1.elb.amazonaws.com   80:32376/TCP   14m
+hello-service     ClusterIP      10.100.59.67     <none>                                                                    3001/TCP       14m
+mongodb           ClusterIP      10.100.4.148     <none>                                                                    27017/TCP      14m
+profile-service   ClusterIP      10.100.206.122   <none>                                                                    3002/TCP       14m
+
+==============================================================
+PROFILE SERVICE LOGS
+==============================================================
+(node:1) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+Server is running on port 3002
+{}
+[]
+{}
+[]
+{}
+[]
+
+==============================================================
+HELM
+==============================================================
+NAME    	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART         	APP VERSION
+mern-app	mern     	2       	2026-08-09 08:59:40.315302978 +0000 UTC	deployed	mern-app-1.0.0	1.0
+
+==============================================================
+ENDPOINT TESTS
+==============================================================
+Hello:
+{"msg":"Hello World"}
+
+Profile:
+[]
+
+==============================================================
+PROFILE ROUTING FIX COMPLETED
+==============================================================

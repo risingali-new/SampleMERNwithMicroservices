@@ -1,0 +1,211 @@
+==============================================================
+PHASE 4A - CLOUDWATCH FIX REPORT
+==============================================================
+
+Date          : Sun Aug  9 10:06:29 UTC 2026
+AWS Region    : us-east-1
+Cluster       : mern-eks
+Nodegroup     : mern-workers
+Node Count    : 2
+Ready Nodes   : 2
+CloudWatch    : ACTIVE
+
+==============================================================
+NODES
+==============================================================
+NAME                             STATUS   ROLES    AGE    VERSION               INTERNAL-IP      EXTERNAL-IP     OS-IMAGE                        KERNEL-VERSION                    CONTAINER-RUNTIME
+ip-192-168-21-142.ec2.internal   Ready    <none>   5m5s   v1.34.9-eks-254016e   192.168.21.142   3.80.135.121    Amazon Linux 2023.12.20260727   6.12.94-123.192.amzn2023.x86_64   containerd://2.2.5+unknown
+ip-192-168-32-152.ec2.internal   Ready    <none>   155m   v1.34.9-eks-254016e   192.168.32.152   54.197.18.124   Amazon Linux 2023.12.20260727   6.12.94-123.192.amzn2023.x86_64   containerd://2.2.5+unknown
+
+==============================================================
+CLOUDWATCH PODS
+==============================================================
+NAME                                                              READY   STATUS    RESTARTS   AGE     IP               NODE                             NOMINATED NODE   READINESS GATES
+amazon-cloudwatch-observability-controller-manager-65b686cbbsrf   1/1     Running   0          53m     192.168.7.104    ip-192-168-21-142.ec2.internal   <none>           <none>
+cloudwatch-agent-tppd6                                            1/1     Running   0          4m46s   192.168.32.152   ip-192-168-32-152.ec2.internal   <none>           <none>
+cloudwatch-agent-vrprc                                            1/1     Running   0          4m46s   192.168.21.142   ip-192-168-21-142.ec2.internal   <none>           <none>
+fluent-bit-9jr7z                                                  1/1     Running   0          53m     192.168.32.152   ip-192-168-32-152.ec2.internal   <none>           <none>
+fluent-bit-bxbdx                                                  1/1     Running   0          5m6s    192.168.21.142   ip-192-168-21-142.ec2.internal   <none>           <none>
+
+==============================================================
+APPLICATION PODS
+==============================================================
+NAME                               READY   STATUS    RESTARTS   AGE     IP               NODE                             NOMINATED NODE   READINESS GATES
+frontend-66f5c9668f-fjpl4          1/1     Running   0          4m47s   192.168.21.13    ip-192-168-21-142.ec2.internal   <none>           <none>
+hello-service-545bbc6ddc-dvhcz     1/1     Running   0          80m     192.168.39.22    ip-192-168-32-152.ec2.internal   <none>           <none>
+mongodb-7c6554d49b-ssmtt           1/1     Running   0          80m     192.168.56.116   ip-192-168-32-152.ec2.internal   <none>           <none>
+profile-service-779757449c-5xsvh   1/1     Running   0          80m     192.168.38.198   ip-192-168-32-152.ec2.internal   <none>           <none>
+
+==============================================================
+SERVICES
+==============================================================
+NAME              TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)        AGE
+frontend          LoadBalancer   10.100.120.216   ab35133b4192a4217a9e59c7e5ac418a-1604142932.us-east-1.elb.amazonaws.com   80:32376/TCP   80m
+hello-service     ClusterIP      10.100.59.67     <none>                                                                    3001/TCP       80m
+mongodb           ClusterIP      10.100.4.148     <none>                                                                    27017/TCP      80m
+profile-service   ClusterIP      10.100.206.122   <none>                                                                    3002/TCP       80m
+
+==============================================================
+CLOUDWATCH LOG GROUPS
+==============================================================
+-------------------------------------------------
+|               DescribeLogGroups               |
++-----------------------------------------------+
+|  /aws/containerinsights/mern-eks/application  |
+|  /aws/containerinsights/mern-eks/dataplane    |
+|  /aws/containerinsights/mern-eks/host         |
+|  /aws/containerinsights/mern-eks/performance  |
++-----------------------------------------------+
+
+==============================================================
+CLOUDWATCH ALARM
+==============================================================
+----------------------------------------------------------------------------------------------------------------------
+|                                                   DescribeAlarms                                                   |
++--------------------------------------------------------------------------------------------------------------------+
+||                                                   MetricAlarms                                                   ||
+|+-------------------------------------+----------------------------------------------------------------------------+|
+||  ActionsEnabled                     |  True                                                                      ||
+||  AlarmArn                           |  arn:aws:cloudwatch:us-east-1:874551618373:alarm:mern-eks-worker-high-cpu  ||
+||  AlarmConfigurationUpdatedTimestamp |  2026-08-09T10:06:27.070000+00:00                                          ||
+||  AlarmDescription                   |  Alarm when EKS worker CPU exceeds 80 percent                              ||
+||  AlarmName                          |  mern-eks-worker-high-cpu                                                  ||
+||  ComparisonOperator                 |  GreaterThanThreshold                                                      ||
+||  EvaluationPeriods                  |  2                                                                         ||
+||  MetricName                         |  CPUUtilization                                                            ||
+||  Namespace                          |  AWS/EC2                                                                   ||
+||  Period                             |  300                                                                       ||
+||  StateReason                        |  Unchecked: Initial alarm creation                                         ||
+||  StateTransitionedTimestamp         |  2026-08-09T10:06:27.070000+00:00                                          ||
+||  StateUpdatedTimestamp              |  2026-08-09T10:06:27.070000+00:00                                          ||
+||  StateValue                         |  INSUFFICIENT_DATA                                                         ||
+||  Statistic                          |  Average                                                                   ||
+||  Threshold                          |  80.0                                                                      ||
+||  TreatMissingData                   |  notBreaching                                                              ||
+|+-------------------------------------+----------------------------------------------------------------------------+|
+|||                                                   Dimensions                                                   |||
+||+------------------------------+---------------------------------------------------------------------------------+||
+|||  Name                        |  InstanceId                                                                     |||
+|||  Value                       |  i-0344ef9852651b009                                                            |||
+||+------------------------------+---------------------------------------------------------------------------------+||
+
+==============================================================
+PHASE 4A SUCCESS
+==============================================================
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ==============================================================
+PHASE 4A - CLOUDWATCH FIX REPORT
+==============================================================
+
+Date          : Sun Aug  9 10:06:29 UTC 2026
+AWS Region    : us-east-1
+Cluster       : mern-eks
+Nodegroup     : mern-workers
+Node Count    : 2
+Ready Nodes   : 2
+CloudWatch    : ACTIVE
+
+==============================================================
+NODES
+==============================================================
+NAME                             STATUS   ROLES    AGE    VERSION               INTERNAL-IP      EXTERNAL-IP     OS-IMAGE                        KERNEL-VERSION                    CONTAINER-RUNTIME
+ip-192-168-21-142.ec2.internal   Ready    <none>   5m5s   v1.34.9-eks-254016e   192.168.21.142   3.80.135.121    Amazon Linux 2023.12.20260727   6.12.94-123.192.amzn2023.x86_64   containerd://2.2.5+unknown
+ip-192-168-32-152.ec2.internal   Ready    <none>   155m   v1.34.9-eks-254016e   192.168.32.152   54.197.18.124   Amazon Linux 2023.12.20260727   6.12.94-123.192.amzn2023.x86_64   containerd://2.2.5+unknown
+
+==============================================================
+CLOUDWATCH PODS
+==============================================================
+NAME                                                              READY   STATUS    RESTARTS   AGE     IP               NODE                             NOMINATED NODE   READINESS GATES
+amazon-cloudwatch-observability-controller-manager-65b686cbbsrf   1/1     Running   0          53m     192.168.7.104    ip-192-168-21-142.ec2.internal   <none>           <none>
+cloudwatch-agent-tppd6                                            1/1     Running   0          4m46s   192.168.32.152   ip-192-168-32-152.ec2.internal   <none>           <none>
+cloudwatch-agent-vrprc                                            1/1     Running   0          4m46s   192.168.21.142   ip-192-168-21-142.ec2.internal   <none>           <none>
+fluent-bit-9jr7z                                                  1/1     Running   0          53m     192.168.32.152   ip-192-168-32-152.ec2.internal   <none>           <none>
+fluent-bit-bxbdx                                                  1/1     Running   0          5m6s    192.168.21.142   ip-192-168-21-142.ec2.internal   <none>           <none>
+
+==============================================================
+APPLICATION PODS
+==============================================================
+NAME                               READY   STATUS    RESTARTS   AGE     IP               NODE                             NOMINATED NODE   READINESS GATES
+frontend-66f5c9668f-fjpl4          1/1     Running   0          4m47s   192.168.21.13    ip-192-168-21-142.ec2.internal   <none>           <none>
+hello-service-545bbc6ddc-dvhcz     1/1     Running   0          80m     192.168.39.22    ip-192-168-32-152.ec2.internal   <none>           <none>
+mongodb-7c6554d49b-ssmtt           1/1     Running   0          80m     192.168.56.116   ip-192-168-32-152.ec2.internal   <none>           <none>
+profile-service-779757449c-5xsvh   1/1     Running   0          80m     192.168.38.198   ip-192-168-32-152.ec2.internal   <none>           <none>
+
+==============================================================
+SERVICES
+==============================================================
+NAME              TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)        AGE
+frontend          LoadBalancer   10.100.120.216   ab35133b4192a4217a9e59c7e5ac418a-1604142932.us-east-1.elb.amazonaws.com   80:32376/TCP   80m
+hello-service     ClusterIP      10.100.59.67     <none>                                                                    3001/TCP       80m
+mongodb           ClusterIP      10.100.4.148     <none>                                                                    27017/TCP      80m
+profile-service   ClusterIP      10.100.206.122   <none>                                                                    3002/TCP       80m
+
+==============================================================
+CLOUDWATCH LOG GROUPS
+==============================================================
+-------------------------------------------------
+|               DescribeLogGroups               |
++-----------------------------------------------+
+|  /aws/containerinsights/mern-eks/application  |
+|  /aws/containerinsights/mern-eks/dataplane    |
+|  /aws/containerinsights/mern-eks/host         |
+|  /aws/containerinsights/mern-eks/performance  |
++-----------------------------------------------+
+
+==============================================================
+CLOUDWATCH ALARM
+==============================================================
+----------------------------------------------------------------------------------------------------------------------
+|                                                   DescribeAlarms                                                   |
++--------------------------------------------------------------------------------------------------------------------+
+||                                                   MetricAlarms                                                   ||
+|+-------------------------------------+----------------------------------------------------------------------------+|
+||  ActionsEnabled                     |  True                                                                      ||
+||  AlarmArn                           |  arn:aws:cloudwatch:us-east-1:874551618373:alarm:mern-eks-worker-high-cpu  ||
+||  AlarmConfigurationUpdatedTimestamp |  2026-08-09T10:06:27.070000+00:00                                          ||
+||  AlarmDescription                   |  Alarm when EKS worker CPU exceeds 80 percent                              ||
+||  AlarmName                          |  mern-eks-worker-high-cpu                                                  ||
+||  ComparisonOperator                 |  GreaterThanThreshold                                                      ||
+||  EvaluationPeriods                  |  2                                                                         ||
+||  MetricName                         |  CPUUtilization                                                            ||
+||  Namespace                          |  AWS/EC2                                                                   ||
+||  Period                             |  300                                                                       ||
+||  StateReason                        |  Unchecked: Initial alarm creation                                         ||
+||  StateTransitionedTimestamp         |  2026-08-09T10:06:27.070000+00:00                                          ||
+||  StateUpdatedTimestamp              |  2026-08-09T10:06:27.070000+00:00                                          ||
+||  StateValue                         |  INSUFFICIENT_DATA                                                         ||
+||  Statistic                          |  Average                                                                   ||
+||  Threshold                          |  80.0                                                                      ||
+||  TreatMissingData                   |  notBreaching                                                              ||
+|+-------------------------------------+----------------------------------------------------------------------------+|
+|||                                                   Dimensions                                                   |||
+||+------------------------------+---------------------------------------------------------------------------------+||
+|||  Name                        |  InstanceId                                                                     |||
+|||  Value                       |  i-0344ef9852651b009                                                            |||
+||+------------------------------+---------------------------------------------------------------------------------+||
+
+==============================================================
+PHASE 4A SUCCESS
+==============================================================
+
+==============================================================
+ PHASE 4A SUCCESSFULLY COMPLETED
+==============================================================
+
+EKS Nodes:
+NAME                             STATUS   ROLES    AGE     VERSION               INTERNAL-IP      EXTERNAL-IP     OS-IMAGE                        KERNEL-VERSION                    CONTAINER-RUNTIME
+ip-192-168-21-142.ec2.internal   Ready    <none>   5m11s   v1.34.9-eks-254016e   192.168.21.142   3.80.135.121    Amazon Linux 2023.12.20260727   6.12.94-123.192.amzn2023.x86_64   containerd://2.2.5+unknown
+ip-192-168-32-152.ec2.internal   Ready    <none>   155m    v1.34.9-eks-254016e   192.168.32.152   54.197.18.124   Amazon Linux 2023.12.20260727   6.12.94-123.192.amzn2023.x86_64   containerd://2.2.5+unknown
+
+CloudWatch:
+ACTIVE
+
+CloudWatch Pods:
+NAME                                                              READY   STATUS    RESTARTS   AGE     IP               NODE                             NOMINATED NODE   READINESS GATES
+amazon-cloudwatch-observability-controller-manager-65b686cbbsrf   1/1     Running   0          54m     192.168.7.104    ip-192-168-21-142.ec2.internal   <none>           <none>
+cloudwatch-agent-tppd6                                            1/1     Running   0          4m52s   192.168.32.152   ip-192-168-32-152.ec2.internal   <none>           <none>
+cloudwatch-agent-vrprc                                            1/1     Running   0          4m52s   192.168.21.142   ip-192-168-21-142.ec2.internal   <none>           <none>
+fluent-bit-9jr7z                                                  1/1     Running   0          54m     192.168.32.152   ip-192-168-32-152.ec2.internal   <none>           <none>
+fluent-bit-bxbdx                                                  1/1     Running   0          5m12s   192.168.21.142   ip-192-168-21-142.ec2.internal   <none>           <none>
+
+Report:
+/home/ubuntu/SampleMERNwithMicroservices/phase4a-cloudwatch-fix-report.txt

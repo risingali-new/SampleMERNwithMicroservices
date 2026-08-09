@@ -1,0 +1,801 @@
+
+==============================================================
+ CLOUDWATCH OBSERVABILITY DIAGNOSTIC REPORT
+==============================================================
+Date    : Sun Aug  9 09:20:03 UTC 2026
+Region  : us-east-1
+Cluster : mern-eks
+
+==============================================================
+1. ADD-ON STATUS AND HEALTH
+==============================================================
+{
+    "Status": "DEGRADED",
+    "Version": "v6.4.0-eksbuild.1",
+    "Health": {
+        "issues": [
+            {
+                "code": "InsufficientNumberOfReplicas",
+                "message": "The add-on is unhealthy because all deployments have all pods unscheduled 0/1 nodes are available: 1 Too many pods. no new claims to deallocate, preemption: 0/1 nodes are available: 1 No preemption victims found for incoming pod."
+            }
+        ]
+    },
+    "ServiceAccount": null
+}
+
+==============================================================
+2. FULL ADD-ON HEALTH
+==============================================================
+{
+    "issues": [
+        {
+            "code": "InsufficientNumberOfReplicas",
+            "message": "The add-on is unhealthy because all deployments have all pods unscheduled 0/1 nodes are available: 1 Too many pods. no new claims to deallocate, preemption: 0/1 nodes are available: 1 No preemption victims found for incoming pod."
+        }
+    ]
+}
+
+==============================================================
+3. CLOUDWATCH NAMESPACE
+==============================================================
+NAME                STATUS   AGE
+amazon-cloudwatch   Active   7m33s
+
+==============================================================
+4. ALL CLOUDWATCH PODS
+==============================================================
+NAME                                                              READY   STATUS    RESTARTS   AGE     IP               NODE                             NOMINATED NODE   READINESS GATES
+amazon-cloudwatch-observability-controller-manager-65b686cbbsrf   0/1     Pending   0          7m30s   <none>           <none>                           <none>           <none>
+fluent-bit-9jr7z                                                  1/1     Running   0          7m30s   192.168.32.152   ip-192-168-32-152.ec2.internal   <none>           <none>
+
+==============================================================
+5. CLOUDWATCH POD STATUS DETAILS
+==============================================================
+amazon-cloudwatch-observability-controller-manager-65b686cbbsrf	Pending
+fluent-bit-9jr7z	Running	fluent-bit=Running exit=
+
+==============================================================
+6. CLOUDWATCH AGENT LOGS
+==============================================================
+No cloudwatch-agent pods found using expected label.
+
+==============================================================
+7. CLOUDWATCH POD EVENTS
+==============================================================
+LAST SEEN   TYPE      REASON              OBJECT                                                                    MESSAGE
+7m32s       Warning   FailedScheduling    pod/amazon-cloudwatch-observability-controller-manager-65b686cbbsrf       0/1 nodes are available: 1 Too many pods. no new claims to deallocate, preemption: 0/1 nodes are available: 1 No preemption victims found for incoming pod.
+2m6s        Warning   FailedScheduling    pod/amazon-cloudwatch-observability-controller-manager-65b686cbbsrf       0/1 nodes are available: 1 Too many pods. no new claims to deallocate, preemption: 0/1 nodes are available: 1 No preemption victims found for incoming pod.
+7m33s       Normal    Scheduled           pod/fluent-bit-9jr7z                                                      Successfully assigned amazon-cloudwatch/fluent-bit-9jr7z to ip-192-168-32-152.ec2.internal
+7m33s       Normal    SuccessfulCreate    replicaset/amazon-cloudwatch-observability-controller-manager-65b686cd7   Created pod: amazon-cloudwatch-observability-controller-manager-65b686cbbsrf
+7m33s       Normal    ScalingReplicaSet   deployment/amazon-cloudwatch-observability-controller-manager             Scaled up replica set amazon-cloudwatch-observability-controller-manager-65b686cd7 from 0 to 1
+7m33s       Normal    Pulling             pod/fluent-bit-9jr7z                                                      Pulling image "602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/observability/aws-for-fluent-bit:3.4.8"
+7m33s       Normal    SuccessfulCreate    daemonset/fluent-bit                                                      Created pod: fluent-bit-9jr7z
+7m29s       Normal    Pulled              pod/fluent-bit-9jr7z                                                      Successfully pulled image "602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/observability/aws-for-fluent-bit:3.4.8" in 3.889s (3.889s including waiting). Image size: 108554577 bytes.
+7m29s       Normal    Created             pod/fluent-bit-9jr7z                                                      Created container: fluent-bit
+7m29s       Normal    Started             pod/fluent-bit-9jr7z                                                      Started container fluent-bit
+
+==============================================================
+8. DAEMONSETS
+==============================================================
+NAME                 DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR              AGE     CONTAINERS   IMAGES                                                                                                        SELECTOR
+fluent-bit           1         1         1       1            1           kubernetes.io/os=linux     7m34s   fluent-bit   602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/observability/aws-for-fluent-bit:3.4.8                       k8s-app=fluent-bit
+fluent-bit-windows   0         0         0       0            0           kubernetes.io/os=windows   7m34s   fluent-bit   602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/observability/aws-for-fluent-bit:2.31.12-windowsservercore   k8s-app=fluent-bit
+
+==============================================================
+9. DEPLOYMENTS
+==============================================================
+NAME                                                 READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES                                                                                           SELECTOR
+amazon-cloudwatch-observability-controller-manager   0/1     1            0           7m35s   manager      602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/observability/cloudwatch-agent-operator:3.6.0   app.kubernetes.io/name=amazon-cloudwatch-observability,control-plane=controller-manager
+
+==============================================================
+10. CLOUDWATCH AGENT CUSTOM RESOURCE
+==============================================================
+apiVersion: v1
+items:
+- apiVersion: cloudwatch.aws.amazon.com/v1alpha1
+  kind: AmazonCloudWatchAgent
+  metadata:
+    creationTimestamp: "2026-08-09T09:12:37Z"
+    generation: 1
+    name: cloudwatch-agent
+    namespace: amazon-cloudwatch
+    resourceVersion: "17933"
+    uid: 42db3425-8857-4021-bfcf-ec254d70bbb7
+  spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: eks.amazonaws.com/compute-type
+              operator: NotIn
+              values:
+              - fargate
+    config: '{"agent":{"region":"us-east-1"},"logs":{"metrics_collected":{"application_signals":{"hosted_in":"mern-eks"},"kubernetes":{"cluster_name":"mern-eks","enhanced_container_insights":true}}},"traces":{"traces_collected":{"application_signals":{}}}}'
+    env:
+    - name: K8S_NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: HOST_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.hostIP
+    - name: HOST_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: K8S_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    - name: K8S_CLUSTER_NAME
+      value: mern-eks
+    hostNetwork: true
+    image: 602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/observability/cloudwatch-agent:1.300070.0b1586
+    managementState: managed
+    mode: daemonset
+    nodeSelector:
+      kubernetes.io/os: linux
+    priorityClassName: system-node-critical
+    replicas: 1
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+    serviceAccount: cloudwatch-agent
+    tolerations:
+    - operator: Exists
+    updateStrategy:
+      rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 1
+      type: RollingUpdate
+    volumeMounts:
+    - mountPath: /rootfs
+      name: rootfs
+      readOnly: true
+    - mountPath: /var/run/docker.sock
+      name: dockersock
+      readOnly: true
+    - mountPath: /run/containerd/containerd.sock
+      name: containerdsock
+    - mountPath: /var/run/crio/crio.sock
+      name: criosock
+      readOnly: true
+    - mountPath: /var/lib/containers
+      name: criocontainer
+      readOnly: true
+    - mountPath: /var/log/pods
+      name: criologs
+      readOnly: true
+    - mountPath: /var/lib/docker
+      name: varlibdocker
+      readOnly: true
+    - mountPath: /sys
+      name: sys
+      readOnly: true
+    - mountPath: /dev/disk
+      name: devdisk
+      readOnly: true
+    - mountPath: /etc/amazon-cloudwatch-observability-agent-cert
+      name: agenttls
+      readOnly: true
+    - mountPath: /etc/amazon-cloudwatch-observability-agent-client-cert
+      name: agentclienttls
+      readOnly: true
+    - mountPath: /etc/amazon-cloudwatch-observability-agent-server-cert
+      name: agentservertls
+      readOnly: true
+    - mountPath: /etc/amazon-cloudwatch-observability-agent-ta-client-cert
+      name: agenttaclienttls
+      readOnly: true
+    - mountPath: /var/lib/kubelet/pod-resources
+      name: kubelet-podresources
+    volumes:
+    - hostPath:
+        path: /var/lib/kubelet/pod-resources
+        type: Directory
+      name: kubelet-podresources
+    - hostPath:
+        path: /
+      name: rootfs
+    - hostPath:
+        path: /var/run/docker.sock
+      name: dockersock
+    - hostPath:
+        path: /var/lib/docker
+      name: varlibdocker
+    - hostPath:
+        path: /run/containerd/containerd.sock
+      name: containerdsock
+    - hostPath:
+        path: /var/run/crio/crio.sock
+      name: criosock
+    - hostPath:
+        path: /var/lib/containers
+      name: criocontainer
+    - hostPath:
+        path: /var/log/pods
+      name: criologs
+    - hostPath:
+        path: /sys
+      name: sys
+    - hostPath:
+        path: /dev/disk/
+      name: devdisk
+    - name: agenttls
+      secret:
+        items:
+        - key: ca.crt
+          path: tls-ca.crt
+        secretName: amazon-cloudwatch-observability-agent-cert
+    - name: agentclienttls
+      secret:
+        items:
+        - key: ca.crt
+          path: tls-ca.crt
+        secretName: amazon-cloudwatch-observability-agent-client-cert
+    - name: agentservertls
+      secret:
+        items:
+        - key: tls.crt
+          path: server.crt
+        - key: tls.key
+          path: server.key
+        secretName: amazon-cloudwatch-observability-agent-server-cert
+    - name: agenttaclienttls
+      secret:
+        items:
+        - key: tls.crt
+          path: client.crt
+        - key: tls.key
+          path: client.key
+        secretName: amazon-cloudwatch-observability-agent-ta-client-cert
+- apiVersion: cloudwatch.aws.amazon.com/v1alpha1
+  kind: AmazonCloudWatchAgent
+  metadata:
+    creationTimestamp: "2026-08-09T09:12:38Z"
+    generation: 1
+    name: cloudwatch-agent-windows
+    namespace: amazon-cloudwatch
+    resourceVersion: "17936"
+    uid: 03e73bd8-f2c0-4a07-a6d8-be53c1560297
+  spec:
+    config: '{"agent":{"region":"us-east-1"},"logs":{"metrics_collected":{"application_signals":{"hosted_in":"mern-eks"}}},"traces":{"traces_collected":{"application_signals":{}}}}'
+    env:
+    - name: K8S_NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: HOST_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.hostIP
+    - name: HOST_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: K8S_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    image: 602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/observability/cloudwatch-agent:1.300070.0b1586
+    managementState: managed
+    mode: daemonset
+    nodeSelector:
+      kubernetes.io/os: windows
+    podSecurityContext:
+      windowsOptions:
+        runAsUserName: NT AUTHORITY\System
+    priorityClassName: system-node-critical
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+    serviceAccount: cloudwatch-agent
+    tolerations:
+    - operator: Exists
+- apiVersion: cloudwatch.aws.amazon.com/v1alpha1
+  kind: AmazonCloudWatchAgent
+  metadata:
+    creationTimestamp: "2026-08-09T09:12:37Z"
+    generation: 1
+    name: cloudwatch-agent-windows-container-insights
+    namespace: amazon-cloudwatch
+    resourceVersion: "17935"
+    uid: 9fdea4b8-414f-4e18-a3cc-bd7babd1f090
+  spec:
+    config: '{"agent":{"region":"us-east-1"},"logs":{"metrics_collected":{"kubernetes":{"cluster_name":"mern-eks","enhanced_container_insights":true}}}}'
+    env:
+    - name: K8S_NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: HOST_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.hostIP
+    - name: HOST_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: K8S_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    - name: RUN_IN_CONTAINER
+      value: "True"
+    - name: RUN_AS_HOST_PROCESS_CONTAINER
+      value: "True"
+    hostNetwork: true
+    image: 602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/observability/cloudwatch-agent:1.300070.0b1586
+    managementState: managed
+    mode: daemonset
+    nodeSelector:
+      kubernetes.io/os: windows
+    podSecurityContext:
+      windowsOptions:
+        hostProcess: true
+        runAsUserName: NT AUTHORITY\System
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+    serviceAccount: cloudwatch-agent
+    tolerations:
+    - operator: Exists
+    workingDir: '%CONTAINER_SANDBOX_MOUNT_POINT%\Program Files\Amazon\AmazonCloudWatchAgent'
+kind: List
+metadata:
+  resourceVersion: ""
+
+==============================================================
+11. CLOUDWATCH SERVICE ACCOUNT
+==============================================================
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: "2026-08-09T09:12:34Z"
+  name: cloudwatch-agent
+  namespace: amazon-cloudwatch
+  resourceVersion: "17878"
+  uid: 2147c8e0-caf1-4fa9-b60f-32b0cb4196d0
+
+==============================================================
+12. POD IDENTITY AGENT
+==============================================================
+
+==============================================================
+13. EKS ADD-ONS
+==============================================================
+---------------------------------------
+|             ListAddons              |
++-------------------------------------+
+||              addons               ||
+|+-----------------------------------+|
+||  amazon-cloudwatch-observability  ||
+||  coredns                          ||
+||  kube-proxy                       ||
+||  metrics-server                   ||
+||  vpc-cni                          ||
+|+-----------------------------------+|
+
+==============================================================
+14. NODE RESOURCES
+==============================================================
+NAME                             CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)
+ip-192-168-32-152.ec2.internal   43m          2%       826Mi           57%
+
+Capacity:
+  cpu:                2
+  ephemeral-storage:  83808236Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             1953968Ki
+  pods:               11
+Allocatable:
+  cpu:                1930m
+  ephemeral-storage:  76163928346
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             1466544Ki
+  pods:               11
+System Info:
+  Machine ID:                 ec25f47d38e96a6e0b981aee68ec73c1
+  System UUID:                ec25f47d-38e9-6a6e-0b98-1aee68ec73c1
+  Boot ID:                    0c939a6c-c341-439f-8c5f-efaf68707963
+  Kernel Version:             6.12.94-123.192.amzn2023.x86_64
+  OS Image:                   Amazon Linux 2023.12.20260727
+--
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                800m (41%)   1350m (69%)
+  memory             885Mi (61%)  2030Mi (141%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-1Gi      0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+Events:
+  Type    Reason          Age   From             Message
+  ----    ------          ----  ----             -------
+  Normal  RegisteredNode  38m   node-controller  Node ip-192-168-32-152.ec2.internal event: Registered Node ip-192-168-32-152.ec2.internal in Controller
+
+==============================================================
+15. NODE MEMORY / CPU
+==============================================================
+Node: ip-192-168-32-152.ec2.internal
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                800m (41%)   1350m (69%)
+  memory             885Mi (61%)  2030Mi (141%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-1Gi      0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+Events:
+  Type    Reason          Age   From             Message
+  ----    ------          ----  ----             -------
+  Normal  RegisteredNode  38m   node-controller  Node ip-192-168-32-152.ec2.internal event: Registered Node ip-192-168-32-152.ec2.internal in Controller
+
+==============================================================
+16. NODEGROUP IAM ROLE
+==============================================================
+Role ARN : arn:aws:iam::874551618373:role/eksctl-mern-eks-nodegroup-mern-wor-NodeInstanceRole-ZiY8WfpBvUKY
+Role Name: eksctl-mern-eks-nodegroup-mern-wor-NodeInstanceRole-ZiY8WfpBvUKY
+
+==============================================================
+17. NODE IAM POLICIES
+==============================================================
+--------------------------------------------------------------------------------------------------------
+|                                       ListAttachedRolePolicies                                       |
++------------------------------------------------------------------------------------------------------+
+||                                          AttachedPolicies                                          ||
+|+-------------------------------------------------------------+--------------------------------------+|
+||                          PolicyArn                          |             PolicyName               ||
+|+-------------------------------------------------------------+--------------------------------------+|
+||  arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy        |  CloudWatchAgentServerPolicy         ||
+||  arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore       |  AmazonSSMManagedInstanceCore        ||
+||  arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy               |  AmazonEKS_CNI_Policy                ||
+||  arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy          |  AmazonEKSWorkerNodePolicy           ||
+||  arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly |  AmazonEC2ContainerRegistryPullOnly  ||
+|+-------------------------------------------------------------+--------------------------------------+|
+
+==============================================================
+18. CLOUDWATCH POLICY CHECK
+==============================================================
+-----------------------------------------------------------------------
+|                      ListAttachedRolePolicies                       |
++------------+--------------------------------------------------------+
+|  PolicyArn |  arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy   |
+|  PolicyName|  CloudWatchAgentServerPolicy                           |
++------------+--------------------------------------------------------+
+
+==============================================================
+19. OIDC PROVIDER
+==============================================================
+https://oidc.eks.us-east-1.amazonaws.com/id/A9D5B12E5FF966A590ED045B5E76193B
+
+==============================================================
+20. POD IDENTITY ASSOCIATIONS
+==============================================================
+-----------------------------
+|ListPodIdentityAssociations|
++---------------------------+
+
+==============================================================
+21. CLOUDWATCH ADD-ON COMPATIBLE VERSIONS
+==============================================================
+-----------------------------------
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  True    |  v6.4.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v6.3.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v6.2.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v6.1.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v6.0.1-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v6.0.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v5.4.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v5.3.1-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v5.3.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v5.2.3-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v5.2.2-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v5.2.1-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.10.3-eksbuild.1  |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.10.2-eksbuild.1  |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.10.1-eksbuild.1  |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.10.0-eksbuild.1  |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.9.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.8.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.7.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.6.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.5.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.4.0-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+|      DescribeAddonVersions      |
++----------+----------------------+
+|  Default |       Version        |
++----------+----------------------+
+|  False   |  v4.3.1-eksbuild.1   |
++----------+----------------------+
+||         Architecture          ||
+|+-------------------------------+|
+||  amd64                        ||
+||  arm64                        ||
+|+-------------------------------+|
+
+==============================================================
+22. NETWORK TEST FROM NODE
+==============================================================
+Testing CloudWatch endpoint:
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0  0     29   0      0   0      0      0      0                              0  0     29   0      0   0      0      0      0                              0  0     29   0      0   0      0      0      0                              0
+HTTP/1.1 404 Not Found
+x-amzn-RequestId: 52ea345c-b20a-4efa-bd37-2f2d98a433f8
+Content-Length: 29
+Date: Sun, 09 Aug 2026 09:20:25 GMT
+
+
+Testing CloudWatch Logs endpoint:
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0  0     29   0      0   0      0      0      0                              0  0     29   0      0   0      0      0      0                              0  0     29   0      0   0      0      0      0                              0
+HTTP/1.1 404 Not Found
+x-amzn-RequestId: 4666f068-c9ac-4845-966a-764d21aaab5a
+Content-Length: 29
+Date: Sun, 09 Aug 2026 09:20:25 GMT
+
+
+==============================================================
+23. FINAL DIAGNOSIS HINTS
+==============================================================
+
+Look specifically for:
+
+  OOMKilled
+  CrashLoopBackOff
+  Pending
+  ImagePullBackOff
+  AccessDenied
+  AccessDeniedException
+  cloudwatch:PutMetricData
+  logs:CreateLogGroup
+  logs:PutLogEvents
+  pods.eks.amazonaws.com
+  FailedScheduling
+
+==============================================================
+DIAGNOSTIC REPORT COMPLETE
+==============================================================
+
+Report:
+/home/ubuntu/SampleMERNwithMicroservices/phase4a-cloudwatch-diagnosis.txt

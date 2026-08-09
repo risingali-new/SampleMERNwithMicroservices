@@ -1,0 +1,31 @@
+==========================================================
+PHASE 2 ECR REPORT
+==========================================================
+Date       : Sun Aug  9 07:16:24 UTC 2026
+AWS Account: 874551618373
+AWS Region : us-east-1
+
+ECR Repositories:
+
+hello-service
+profile-service
+mern-frontend
+
+Images:
+
+874551618373.dkr.ecr.us-east-1.amazonaws.com/hello-service:v1
+874551618373.dkr.ecr.us-east-1.amazonaws.com/profile-service:v1
+874551618373.dkr.ecr.us-east-1.amazonaws.com/mern-frontend:v1
+
+ECR verification:
+------------------------------------------------------------------
+|                      DescribeRepositories                      |
++----------------------------------------------------------------+
+|  874551618373.dkr.ecr.us-east-1.amazonaws.com/hello-service    |
+|  874551618373.dkr.ecr.us-east-1.amazonaws.com/profile-service  |
+|  874551618373.dkr.ecr.us-east-1.amazonaws.com/mern-frontend    |
++----------------------------------------------------------------+
+
+==========================================================
+PHASE 2 COMPLETE
+==========================================================

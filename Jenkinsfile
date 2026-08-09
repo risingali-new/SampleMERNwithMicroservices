@@ -50,7 +50,7 @@ pipeline {
         stage('AWS Identity') {
             steps {
                 withAWS(
-                    credentials: 'aws-ecr-credentials',
+                    credentials: 'mern-aws-ecr',
                     region: "${AWS_REGION}"
                 ) {
                     sh '''
@@ -69,7 +69,7 @@ pipeline {
         stage('ECR Login') {
             steps {
                 withAWS(
-                    credentials: 'aws-ecr-credentials',
+                    credentials: 'mern-aws-ecr',
                     region: "${AWS_REGION}"
                 ) {
                     sh '''
@@ -127,7 +127,7 @@ pipeline {
         stage('Push Images') {
             steps {
                 withAWS(
-                    credentials: 'aws-ecr-credentials',
+                    credentials: 'mern-aws-ecr',
                     region: "${AWS_REGION}"
                 ) {
                     sh '''
@@ -158,7 +158,7 @@ pipeline {
         stage('Verify ECR') {
             steps {
                 withAWS(
-                    credentials: 'aws-ecr-credentials',
+                    credentials: 'mern-aws-ecr',
                     region: "${AWS_REGION}"
                 ) {
                     sh '''

@@ -1,0 +1,23 @@
+namespace: mern
+
+images:
+  hello:
+    repository: 874551618373.dkr.ecr.us-east-1.amazonaws.com/hello-service
+    tag: v1
+
+  profile:
+    repository: 874551618373.dkr.ecr.us-east-1.amazonaws.com/profile-service
+    tag: v1
+
+  frontend:
+    repository: 874551618373.dkr.ecr.us-east-1.amazonaws.com/mern-frontend
+    tag: v3
+
+mongodb:
+  image: mongo:7
+
+replicas:
+  hello: 1
+  profile: 1
+  frontend: 1
+  mongodb: 1
