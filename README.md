@@ -164,7 +164,8 @@ Final validation confirmed the local `main` branch matches `origin/main` and the
 ### Evidence
 
 > **SCREENSHOT PLACEHOLDER — GitHub Repository**  
-> Capture the GitHub repository showing the source, `Jenkinsfile`, Dockerfiles, and `helm/` directory.  
+<img width="1405" height="1577" alt="image" src="https://github.com/user-attachments/assets/30d79c27-4785-4dd9-b24c-b1e841b27336" />
+
 >
 > **PASTE SCREENSHOT HERE**
 
@@ -201,7 +202,8 @@ docker build -t mern-frontend ./frontend
 > **SCREENSHOT PLACEHOLDER — Docker Images**  
 > Capture Docker image/build verification.  
 >
-> **PASTE SCREENSHOT HERE**
+<img width="2582" height="514" alt="image" src="https://github.com/user-attachments/assets/6699b09a-c0b8-435d-95d1-49b5bc7c1ea8" />
+
 
 ---
 
@@ -252,7 +254,8 @@ latest
 > **SCREENSHOT PLACEHOLDER — Amazon ECR**  
 > Capture all three ECR repositories and image tags.  
 >
-> **PASTE SCREENSHOT HERE**
+<img width="2299" height="512" alt="image" src="https://github.com/user-attachments/assets/90e9d415-9b13-4cf8-b008-dde5835e2efa" />
+
 
 ---
 
@@ -276,7 +279,8 @@ Region : us-east-1
 > **SCREENSHOT PLACEHOLDER — AWS Identity**  
 > Capture `aws sts get-caller-identity` and AWS region.  
 >
-> **PASTE SCREENSHOT HERE**
+<img width="1278" height="160" alt="image" src="https://github.com/user-attachments/assets/fbd961b9-1049-45f2-bc4d-78cfe7ce2477" />
+
 
 ---
 
@@ -344,7 +348,8 @@ Finished: SUCCESS
 > **SCREENSHOT PLACEHOLDER — Jenkins Successful Pipeline**  
 > Capture Build #2 showing successful stages and final success.  
 >
-> **PASTE SCREENSHOT HERE**
+<img width="2588" height="497" alt="image" src="https://github.com/user-attachments/assets/44107522-26e8-4822-a201-fd96a1d257f1" />
+
 
 > **SCREENSHOT PLACEHOLDER — Jenkins AWS Credential Validation**  
 > Capture successful AWS identity validation. Do not expose any secret.  
@@ -388,12 +393,15 @@ kubectl get nodes -o wide
 > **SCREENSHOT PLACEHOLDER — EKS Cluster**  
 > Capture AWS EKS console showing `mern-eks` as ACTIVE.  
 >
-> **PASTE SCREENSHOT HERE**
+<img width="2597" height="438" alt="image" src="https://github.com/user-attachments/assets/78e62a3b-2484-4c16-97a1-c9629e85cd2e" />
+
 
 > **SCREENSHOT PLACEHOLDER — EKS Worker Node**  
 > Capture `kubectl get nodes -o wide` showing `Ready`.  
 >
-> **PASTE SCREENSHOT HERE**
+<img width="1064" height="1208" alt="image" src="https://github.com/user-attachments/assets/78dc5b84-991b-4d23-b0cd-21a8ad8d354f" />
+
+<img width="2883" height="1550" alt="image" src="https://github.com/user-attachments/assets/0d010910-7a75-43bc-9a77-ba73e3ecea0a" />
 
 ---
 
