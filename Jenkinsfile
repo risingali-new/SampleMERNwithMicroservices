@@ -168,24 +168,24 @@ pipeline {
                         aws ecr describe-images \
                             --repository-name "${HELLO_REPO}" \
                             --region "${AWS_REGION}" \
-                            --query 'imageDetails[].imageTags' \
-                            --output table
+                            --query 'imageDetails[].imageTags[]' \
+                            --output text
 
                         echo
                         echo "Profile Service:"
                         aws ecr describe-images \
                             --repository-name "${PROFILE_REPO}" \
                             --region "${AWS_REGION}" \
-                            --query 'imageDetails[].imageTags' \
-                            --output table
+                            --query 'imageDetails[].imageTags[]' \
+                            --output text
 
                         echo
                         echo "Frontend:"
                         aws ecr describe-images \
                             --repository-name "${FRONTEND_REPO}" \
                             --region "${AWS_REGION}" \
-                            --query 'imageDetails[].imageTags' \
-                            --output table
+                            --query 'imageDetails[].imageTags[]' \
+                            --output text
                     '''
                 }
             }
